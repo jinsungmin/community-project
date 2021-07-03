@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "properties": {
+    "search": {
+      "type": "string"
+    },
+    "sort": {
+      "type": "string",
+      "enum": [
+        "createdAt",
+        "name",
+        "id"
+      ]
+    },
+    "order": {
+      "type": "string",
+      "enum": [
+        "ASC",
+        "DESC"
+      ]
+    },
+    "start": {
+      "type": "integer",
+      "minimum": 0,
+      "default:": 0
+    },
+    "perPage": {
+      "type": "integer",
+      "minimum": 5,
+      "maximum": 1000,
+      "default:": 25
+    }
+  },
+  "required": [
+    "start",
+    "perPage"
+  ],
+  "additionalProperties": false
+}

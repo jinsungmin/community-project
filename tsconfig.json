@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "lib": [
+      "es2017",
+      "esnext.asynciterable"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "incremental": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": false,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": false,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "pretty": true,
+    "sourceMap": false,
+    "outDir": "./build",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "noEmit": false
+  },
+  "include": [
+    "./src/**/*",
+    "./config/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "test"
+  ]
+}

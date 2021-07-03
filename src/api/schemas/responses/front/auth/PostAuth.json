@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "user": {"$ref": "#/components/schemas/responses~1front~1GetUsers"},
+    "accessToken": {
+      "type": "string"
+    },
+    "refreshToken": {
+      "type": "string"
+    }
+  },
+  "required": ["user", "accessToken", "refreshToken"],
+  "additionalProperties": false
+}

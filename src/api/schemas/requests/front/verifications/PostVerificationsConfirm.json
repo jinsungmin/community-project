@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "pattern": "^\\d{6}$"
+    },
+    "codeToken": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "codeToken"
+  ],
+  "additionalProperties": false
+}

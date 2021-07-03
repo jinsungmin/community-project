@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "password": {
+      "type": "string",
+      "pattern": "^[0-9a-zA-Z!@#$%^&*()?+-_~=\/]{6,40}$"
+    },
+    "newPassword": {
+      "type": "string",
+      "pattern": "^[0-9a-zA-Z!@#$%^&*()?+-_~=\/]{6,40}$"
+    }
+  },
+  "required": [
+    "password",
+    "newPassword"
+  ],
+  "additionalProperties": false
+}

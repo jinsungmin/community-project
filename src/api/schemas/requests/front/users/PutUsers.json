@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "minProperties": 1,
+  "properties": {
+    "profileUrl": {
+      "type": "string",
+      "nullable": true
+    },
+    "gender": {
+      "type": "string",
+      "nullable": true,
+      "enum": [
+        "male",
+        "female",
+        null
+      ]
+    },
+    "birth": {
+      "type": "string",
+      "format": "date",
+      "nullable": true
+    },
+    "height": {
+      "type": "number",
+      "minimum": 0,
+      "nullable": true
+    },
+    "top": {
+      "type": "integer",
+      "minimum": 0,
+      "nullable": true
+    },
+    "pants": {
+      "type": "integer",
+      "minimum": 0,
+      "nullable": true
+    }
+  },
+  "required": [
+  ],
+  "additionalProperties": false
+}

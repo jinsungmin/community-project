@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "password": {
+      "type": "string",
+      "pattern": "^[0-9a-zA-Z!@#$%^&*()?+-_~=\/]{6,40}$"
+    },
+    "phone": {
+      "type": "string",
+      "pattern": "^01([016789]?)([0-9]{3,4})([0-9]{4})$"
+    },
+    "phoneToken": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "password",
+    "phone",
+    "phoneToken"
+  ],
+  "additionalProperties": false
+}
