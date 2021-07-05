@@ -7,19 +7,12 @@ const tableName = 'Posts'
 async function create(options: IPostCreate, connection?: PoolConnection): Promise<IPost> {
     try {
         const {userId, title, content, createdAt = new Date(), updatedAt = new Date()} = options
-
         const {insertId} = await db.query({
             connection,
             sql: `INSERT INTO ?? SET ?`,
             values: [
                 tableName,
-                {
-                    userId,
-                    title,
-                    content,
-                    createdAt,
-                    updatedAt
-                }
+                {userId, title, content, createdAt, updatedAt}
             ]
         })
         return {id: insertId, userId, title, content, createdAt, updatedAt}

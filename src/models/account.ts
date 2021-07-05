@@ -13,7 +13,6 @@ async function create(
     const {userId, type, accountId, password} = options
     let accountInfo = null
     let insertType
-
     if (type === 'email') {
       if (!password) throw new Error('password_is_required')
       insertType = type
