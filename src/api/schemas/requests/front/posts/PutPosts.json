@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "title",
+    "content"
+  ],
+  "additionalProperties": false
+}

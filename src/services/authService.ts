@@ -4,7 +4,6 @@ import {passwordIterations} from '../libs/code'
 import {decodeToken} from '../libs/jwt'
 import {IUser} from '../interfaces/user'
 import {db} from '../loaders'
-import {copyTempObject} from '../loaders/aws'
 
 async function userSignUp(options: {
   email: string

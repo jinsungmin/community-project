@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "userId": {
+      "type": "integer"
+    },
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "id",
+    "userId",
+    "title",
+    "content"
+  ],
+  "additionalProperties": false
+}

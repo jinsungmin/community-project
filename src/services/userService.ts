@@ -16,9 +16,10 @@ async function findOne(options: {id?: number; name?: string; email?: string; pho
 
 async function update(options: IUserUpdate): Promise<IUserUpdate> {
   try {
+    /*
     if (options.profileUrl) {
       options.profileUrl = await copyTempObject(options.profileUrl, `images/users/${options.id}`)
-    }
+    } */
     const user = await User.updateOne(options)
     if (user) return user
     throw new Error('not_found')
