@@ -8,6 +8,7 @@ export interface IPost {
 }
 
 export interface IPostCreate {
+    id?: number
     userId: number
     title: string
     content: string

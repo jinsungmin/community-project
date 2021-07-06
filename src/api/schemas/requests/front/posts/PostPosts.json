@@ -10,6 +10,10 @@
     "content": {
       "type": "string",
       "maxLength": 1000
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
     }
   },
   "required": [

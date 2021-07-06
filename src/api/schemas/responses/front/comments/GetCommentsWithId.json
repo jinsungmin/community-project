@@ -7,8 +7,11 @@
     "userId": {
       "type": "integer"
     },
-    "title": {
-      "type": "string"
+    "postId": {
+      "type": "integer"
+    },
+    "parentId": {
+      "type": "integer"
     },
     "content": {
       "type": "string",
@@ -17,14 +20,18 @@
     "createdAt": {
       "type": "string",
       "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
     }
   },
   "required": [
     "id",
     "userId",
-    "title",
-    "content",
-    "createdAt"
+    "postId",
+    "createdAt",
+    "updatedAt"
   ],
   "additionalProperties": false
 }

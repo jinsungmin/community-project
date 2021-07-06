@@ -36,8 +36,8 @@ async function getPostsWithId(req: IRequest, res: Response, next: Function): Pro
 async function putPostsWithId(req: IRequest, res: Response, next: Function): Promise<void> {
     try {
         const {id, title, content} = req.options
-        const patient = await PostService.update({id, title, content})
-        res.status(200).json(patient)
+        const post = await PostService.update({id, title, content})
+        res.status(200).json(post)
     } catch (e) {
         if (e.message === 'not_found') e.status = 404
         if (e.message === 'cannot_edit_user') e.status = 409

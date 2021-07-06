@@ -30,8 +30,8 @@ async function findAll(options: IPostFindAll): Promise<IPostList> {
 
 async function findOne(id: number): Promise<IPost> {
     try {
-        const diagnosis = await Post.findOne({id})
-        if (diagnosis) return diagnosis
+        const post = await Post.findOne({id})
+        if (post) return post
         throw new Error('not_found')
     } catch (e) {
         throw e

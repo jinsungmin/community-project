@@ -4,11 +4,14 @@
     "id": {
       "type": "integer"
     },
+    "postId": {
+      "type": "integer"
+    },
     "userId": {
       "type": "integer"
     },
-    "title": {
-      "type": "string"
+    "parentId": {
+      "type": "integer"
     },
     "content": {
       "type": "string",
@@ -22,7 +25,7 @@
   "required": [
     "id",
     "userId",
-    "title",
+    "postId",
     "content",
     "createdAt"
   ],

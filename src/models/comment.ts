@@ -1,42 +1,45 @@
 import {PoolConnection} from 'mysql'
 import {db} from '../loaders'
-import {IPost, IPostCreate, IPostFindAll, IPostList, IPostUpdate} from '../interfaces/post'
-import {generateRandomCode} from "../libs/code";
+import {IComment, ICommentCreate, ICommentFindAll, ICommentList, ICommentUpdate} from '../interfaces/comment'
+import {generateRandomCode} from '../libs/code'
 
-const tableName = 'Posts'
+const tableName = 'Comments'
 
-async function create(options: IPostCreate, connection?: PoolConnection): Promise<IPost> {
+async function create(options: ICommentCreate, connection?: PoolConnection): Promise<IComment> {
     try {
-        const {id = generateRandomCode(8), userId, title, content, createdAt = new Date(), updatedAt = new Date()} = options
+        const {id = generateRandomCode(8), userId, postId, parentId, content, createdAt = new Date(), updatedAt = new Date()} = options
         await db.query({
             connection,
             sql: `INSERT INTO ?? SET ?`,
             values: [
                 tableName,
-                {id, userId, title, content, createdAt, updatedAt}
+                {id, userId, postId, parentId, content, createdAt, updatedAt}
             ]
         })
-        return {id, userId, title, content, createdAt, updatedAt}
+        return {id, userId, postId, parentId, content, createdAt, updatedAt}
     } catch (e) {
         throw e
     }
 }
 
-async function findAll(options: IPostFindAll): Promise<IPostList> {
+async function findAll(options: ICommentFindAll): Promise<ICommentList> {
     try {
-        const {search, sort, order, start, perPage} = options
+        const {search, userId, postId, parentId, sort, order, start, perPage} = options
         const where = []
-        if (search) where.push(`(p.title like '%${search}%' OR p.content like '%${search}%')`)
+        if (search) where.push(`(c.content like '%${search}%')`)
+        if (postId) where.push(`(c.postId = ${postId})`)
+        if (userId) where.push(`(c.userId = ${userId})`)
+        if (parentId) where.push(`(c.parentId = ${parentId})`)
 
-        const rows: IPost[] = await db.query({
-            sql: `SELECT p.* FROM ?? p
+        const rows: IComment[] = await db.query({
+            sql: `SELECT c.* FROM ?? c
       ${where.length ? `WHERE ${where.join(' AND ')}` : ''}
-      ${sort && order ? `ORDER BY p.${sort} ${order}` : ``}
+      ${sort && order ? `ORDER BY c.${sort} ${order}` : ``}
       LIMIT ${start}, ${perPage}`,
             values: [tableName]
         })
         const [rowTotal] = await db.query({
-            sql: `SELECT COUNT(1) as total FROM ?? p
+            sql: `SELECT COUNT(1) as total FROM ?? c
       ${where.length ? `WHERE ${where.join(' AND ')}` : ''}`,
             values: [tableName]
         })
@@ -47,18 +50,18 @@ async function findAll(options: IPostFindAll): Promise<IPostList> {
 }
 
 
-async function findOne(options: { id?: number }): Promise<IPost> {
+async function findOne(options: { id?: number }): Promise<IComment> {
     try {
         const {id} = options
 
         const where = []
-        if (id) where.push(`p.id = ${id}`)
+        if (id) where.push(`c.id = ${id}`)
 
         const [row] = await db.query({
-            sql: `SELECT p.*
-      FROM ?? p
+            sql: `SELECT c.*
+      FROM ?? c
       WHERE ${where.join(' AND ')}
-      GROUP BY p.id`,
+      GROUP BY c.id`,
             values: [tableName]
         })
         return row
@@ -67,7 +70,7 @@ async function findOne(options: { id?: number }): Promise<IPost> {
     }
 }
 
-async function updateOne(options: IPostUpdate, connection?: PoolConnection): Promise<IPostUpdate> {
+async function updateOne(options: ICommentUpdate, connection?: PoolConnection): Promise<ICommentUpdate> {
     const {id, ...data} = options
     data.updatedAt = new Date()
     try {
