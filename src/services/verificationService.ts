@@ -4,14 +4,14 @@ import {createToken, decodeToken} from '../libs/jwt'
 
 async function create(options: IVerificationCreate): Promise<Dictionary> {
   try {
-    const {type, phone} = options
+    const {type, email} = options
     if (type === 'reset') {
-      const user = await User.findOne({phone})
+      const user = await User.findOne({accountId: email})
       if (!user) {
         throw new Error('not_found')
       }
     } else {
-      const user = await User.findOne({phone})
+      const user = await User.findOne({accountId: email})
       if (user) throw new Error('already_in_use')
     }
     const {id, code} = await Verification.create(options)

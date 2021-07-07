@@ -9,25 +9,24 @@ async function userSignUp(options: {
   email: string
   name: string
   password: string
-  phone: string
-  phoneToken: string
+  emailToken: string
   profileUrl?: string
 }): Promise<{accessToken: string; refreshToken: string; user: IUser & {email: string}}> {
   const connection = await db.beginTransaction()
   try {
-    const {password, email, profileUrl, phoneToken, ...data} = options
+    const {password, email, profileUrl, emailToken, ...data} = options
 
     const verification = await Verification.findOne({
-      phone: options.phone,
+      email: options.email,
       type: 'register',
       confirmed: true,
       used: false
     })
     if (!verification) throw {status: 401, message: 'expired_token'}
-    await decodeToken(phoneToken, {subject: verification.id.toString(), algorithms: ['RS256']})
+    await decodeToken(emailToken, {subject: verification.id.toString(), algorithms: ['RS256']})
     await Verification.update({id: verification.id, used: true}, connection)
 
-    const user = await User.create({...data}, connection)
+    const user = await User.create({...data, email}, connection)
     const accountInfo: Dictionary = await Account.create(
       {userId: user.id, type: 'email', accountId: email, password},
       connection
@@ -90,21 +89,21 @@ async function userUpdatePassword(
   }
 }
 
-async function userResetPassword(phone: string, password: string, phoneToken: string): Promise<void> {
+async function userResetPassword(email: string, password: string, emailToken: string): Promise<void> {
   const connection = await db.beginTransaction()
   try {
     const verification = await Verification.findOne({
-      phone,
+      email,
       type: 'reset',
       confirmed: true,
       used: false
     })
     if (!verification) throw {status: 401, message: 'expired_token'}
 
-    await JWT.decodeToken(phoneToken, {subject: verification.id.toString(), algorithms: ['RS256']})
+    await JWT.decodeToken(emailToken, {subject: verification.id.toString(), algorithms: ['RS256']})
     await Verification.update({id: verification.id, used: true}, connection)
 
-    const user = await User.findOne({phone})
+    const user = await User.findOne({accountId: email})
     if (user) {
       await Account.updatePassword({userId: user.id, password})
       await db.commit(connection)

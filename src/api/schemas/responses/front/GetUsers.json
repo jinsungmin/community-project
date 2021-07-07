@@ -14,38 +14,6 @@
       "type": "string",
       "format": "email"
     },
-    "phone": {
-      "type": "string"
-    },
-    "gender": {
-      "type": "string",
-      "nullable": true,
-      "enum": [
-        "male",
-        "female",
-        null
-      ]
-    },
-    "birth": {
-      "type": "string",
-      "format": "date",
-      "nullable": true
-    },
-    "height": {
-      "type": "number",
-      "minimum": 0,
-      "nullable": true
-    },
-    "top": {
-      "type": "integer",
-      "minimum": 0,
-      "nullable": true
-    },
-    "pants": {
-      "type": "integer",
-      "minimum": 0,
-      "nullable": true
-    },
     "createdAt": {
       "type": "string",
       "format": "date-time"
@@ -55,7 +23,6 @@
     "id",
     "name",
     "email",
-    "phone",
     "createdAt"
   ],
   "additionalProperties": false

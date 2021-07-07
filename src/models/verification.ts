@@ -6,17 +6,16 @@ import {createPasswordHash, generateRandomCode, passwordIterations} from '../lib
 const tableName = 'Verifications'
 
 async function create(options: IVerificationCreate, connection?: PoolConnection): Promise<IVerification> {
-  const {phone, type} = options
+  const {email, type} = options
   try {
     const code = generateRandomCode(6)
     const {insertId} = await db.query({
       connection,
       sql: `INSERT INTO ?? SET ?
         ON DUPLICATE KEY UPDATE code = VALUES(code), confirmed = false, used = false, createdAt = NOW()`,
-      values: [tableName, {phone, code, type}]
+      values: [tableName, {email, code, type}]
     })
-    console.log('test:', insertId, phone)
-    return {id: insertId, phone, code: code.toString(), type, confirmed: false, used: false}
+    return {id: insertId, email, code: code.toString(), type, confirmed: false, used: false}
   } catch (e) {
     throw e
   }
@@ -25,13 +24,13 @@ async function create(options: IVerificationCreate, connection?: PoolConnection)
 async function findOne({
   id,
   type,
-  phone,
+  email,
   confirmed,
   used
 }: {
   id?: number
   type?: string
-  phone?: string
+  email?: string
   confirmed?: boolean
   used?: boolean
 }): Promise<IVerification> {
@@ -39,7 +38,7 @@ async function findOne({
     const where = []
     if (type) where.push(`type = '${type}'`)
     if (id) where.push(`id = ${id}`)
-    if (phone) where.push(`phone = '${phone}'`)
+    if (email) where.push(`email = '${email}'`)
     if (confirmed) where.push(`confirmed = ${confirmed}`)
     if (typeof used !== 'undefined') where.push(`used = ${used}`)
     const [row] = await db.query({

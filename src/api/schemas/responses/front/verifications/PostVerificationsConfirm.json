@@ -1,12 +1,12 @@
 {
   "type": "object",
   "properties": {
-    "phoneToken": {
+    "emailToken": {
       "type": "string"
     }
   },
   "required": [
-    "phoneToken"
+    "emailToken"
   ],
   "additionalProperties": false
 }

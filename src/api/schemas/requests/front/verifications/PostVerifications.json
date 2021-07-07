@@ -1,17 +1,17 @@
 {
   "type": "object",
   "properties": {
-    "phone": {
+    "email": {
       "type": "string",
-      "pattern": "^01([016789]?)([0-9]{3,4})([0-9]{4})$"
+      "format": "email"
     },
     "type": {
       "type": "string",
-      "enum": ["register", "reset", "changePhone"]
+      "enum": ["register", "reset"]
     }
   },
   "required": [
-    "phone",
+    "email",
     "type"
   ],
   "additionalProperties": false

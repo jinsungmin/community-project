@@ -1,15 +1,14 @@
 export interface IUser {
   id: number
+  email: string
   name: string
-  phone: string
   profileUrl?: string
-  addressId?: number
   createdAt: Date
 }
 
 export interface IUserCreate {
   name: string
-  phone: string
+  email: string
   profileUrl?: string
   createdAt?: Date
 }

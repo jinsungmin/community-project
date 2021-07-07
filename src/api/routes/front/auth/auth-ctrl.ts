@@ -39,8 +39,8 @@ async function putAuth(req: IRequest, res: Response, next: Function): Promise<vo
 
 async function postAuthRegister(req: IRequest, res: Response, next: Function): Promise<void> {
   try {
-    const {email, name, phone, phoneToken, profileUrl, password} = req.options
-    const ret = await AuthService.userSignUp({email, name, phone, phoneToken, profileUrl, password})
+    const {email, name, emailToken, profileUrl, password} = req.options
+    const ret = await AuthService.userSignUp({email, name, emailToken, profileUrl, password})
     res.status(201).json(ret)
   } catch (e) {
     if (e.message === 'expired_token') e.status = 401

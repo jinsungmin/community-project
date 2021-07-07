@@ -7,7 +7,7 @@ const tableName = 'Users'
 
 async function create(options: IUserCreate, connection?: PoolConnection): Promise<IUser> {
   try {
-    const {name, phone, profileUrl, createdAt = new Date()} = options
+    const {name, email, profileUrl, createdAt = new Date()} = options
 
     const {insertId} = await db.query({
       connection,
@@ -16,26 +16,25 @@ async function create(options: IUserCreate, connection?: PoolConnection): Promis
         tableName,
         {
           name,
-          phone,
+          email,
           profileUrl,
           createdAt
         }
       ]
     })
-    return {id: insertId, name, phone, profileUrl, createdAt}
+    return {id: insertId, name, email, profileUrl, createdAt}
   } catch (e) {
     throw e
   }
 }
 
-async function findOne(options: {id?: number, name?: string, phone?: string, accountId?: string}): Promise<IUser> {
+async function findOne(options: {id?: number, name?: string, accountId?: string}): Promise<IUser> {
   try {
-    const {id, phone, name, accountId} = options
+    const {id, name, accountId} = options
 
     const where = []
     if (id) where.push(`u.id = ${id}`)
     if (name) where.push(`u.name = '${name}'`)
-    if (phone) where.push(`u.phone = '${phone}'`)
     if (accountId) where.push(`a.accountId = '${accountId}'`)
 
     const [row] = await db.query({

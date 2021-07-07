@@ -3,8 +3,8 @@ import {Response} from 'express'
 
 async function postVerifications(req: IRequest, res: Response, next: Function) {
   try {
-    const {type, phone} = req.options
-    const ret = await VerificationService.create({phone, type})
+    const {type, email} = req.options
+    const ret = await VerificationService.create({email, type})
     res.status(201).json(ret)
   } catch (e) {
     if (e.message === 'not_found') e.status = 404
@@ -16,8 +16,8 @@ async function postVerifications(req: IRequest, res: Response, next: Function) {
 async function postVerificationsConfirm(req: IRequest, res: Response, next: Function) {
   try {
     const {code, codeToken} = req.options
-    const phoneToken = await VerificationService.confirm(code, codeToken)
-    res.status(200).json({phoneToken})
+    const emailToken = await VerificationService.confirm(code, codeToken)
+    res.status(200).json({emailToken})
   } catch (e) {
     if (e.message === 'expired_token') e.status = 401
     else if (e.message === 'wrong_code') e.status = 409

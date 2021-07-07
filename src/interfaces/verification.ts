@@ -1,15 +1,15 @@
 export interface IVerification {
   id: number
-  phone: string
+  email: string
   code: string
   confirmed: boolean
   used: boolean
-  type: 'register' | 'reset' | 'changePhone'
+  type: 'register' | 'reset'
 }
 
 export interface IVerificationCreate {
-  phone: string
-  type: 'register' | 'reset' | 'changePhone'
+  email: string
+  type: 'register' | 'reset'
 }
 
 export interface IVerificationUpdate extends Partial<IVerification> {
