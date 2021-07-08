@@ -1,8 +1,11 @@
 export interface IPost {
     id: number
     userId: number
+    userName?: string
     title: string
     content: string
+    ratings: number
+    ratingList?: Array<{id: number, userId: number, type: string}>
     createdAt: Date
     updatedAt: Date
 }

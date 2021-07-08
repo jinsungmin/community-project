@@ -2,8 +2,10 @@ import {PoolConnection} from 'mysql'
 import {db} from '../loaders'
 import {IPost, IPostCreate, IPostFindAll, IPostList, IPostUpdate} from '../interfaces/post'
 import {generateRandomCode} from "../libs/code";
+import {User} from './index'
 
 const tableName = 'Posts'
+const tableRating = 'Ratings'
 
 async function create(options: IPostCreate, connection?: PoolConnection): Promise<IPost> {
     try {
@@ -16,7 +18,7 @@ async function create(options: IPostCreate, connection?: PoolConnection): Promis
                 {id, userId, title, content, createdAt, updatedAt}
             ]
         })
-        return {id, userId, title, content, createdAt, updatedAt}
+        return {id, userId, title, content, ratings: 0, createdAt, updatedAt}
     } catch (e) {
         throw e
     }
@@ -29,11 +31,13 @@ async function findAll(options: IPostFindAll): Promise<IPostList> {
         if (search) where.push(`(p.title like '%${search}%' OR p.content like '%${search}%')`)
 
         const rows: IPost[] = await db.query({
-            sql: `SELECT p.* FROM ?? p
+            sql: `SELECT p.*, u.name as userName
+                  FROM ?? p
+                  JOIN ?? u on u.id = p.userId
       ${where.length ? `WHERE ${where.join(' AND ')}` : ''}
       ${sort && order ? `ORDER BY p.${sort} ${order}` : ``}
       LIMIT ${start}, ${perPage}`,
-            values: [tableName]
+            values: [tableName, User.tableName]
         })
         const [rowTotal] = await db.query({
             sql: `SELECT COUNT(1) as total FROM ?? p
@@ -46,7 +50,6 @@ async function findAll(options: IPostFindAll): Promise<IPostList> {
     }
 }
 
-
 async function findOne(options: { id?: number }): Promise<IPost> {
     try {
         const {id} = options
@@ -55,11 +58,12 @@ async function findOne(options: { id?: number }): Promise<IPost> {
         if (id) where.push(`p.id = ${id}`)
 
         const [row] = await db.query({
-            sql: `SELECT p.*
+            sql: `SELECT p.*, (SELECT JSON_ARRAYAGG(JSON_OBJECT('id', r.id, 'userId', r.userId, 'type', r.type)) 
+                  FROM ?? as r WHERE r.postId = ${id}) as ratingList
       FROM ?? p
       WHERE ${where.join(' AND ')}
       GROUP BY p.id`,
-            values: [tableName]
+            values: [tableRating, tableName]
         })
         return row
     } catch (e) {

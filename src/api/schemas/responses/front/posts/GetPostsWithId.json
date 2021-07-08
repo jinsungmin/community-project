@@ -7,12 +7,36 @@
     "userId": {
       "type": "integer"
     },
+    "userName": {
+      "type": "string"
+    },
     "title": {
       "type": "string"
     },
     "content": {
       "type": "string",
       "maxLength": 1000
+    },
+    "ratings": {
+      "type": "number"
+    },
+    "ratingList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "nullable": true
     },
     "createdAt": {
       "type": "string",
