@@ -51,6 +51,19 @@ async function update(options: IPostUpdate): Promise<IPostUpdate> {
     }
 }
 
+async function updateRating(id:number, type:string): Promise<IPostUpdate> {
+    const connection = await db.beginTransaction()
+    try {
+        const post = await Post.updateRating(id, type, connection)
+        await db.commit(connection)
+        if (post) return post
+        throw new Error('not_found')
+    } catch (e) {
+        if (connection) await db.rollback(connection)
+        throw e
+    }
+}
+
 async function deleteOne(options: IPostDelete): Promise<void> {
     try {
         const ret = await Post.deleteOne(options.id)
@@ -60,4 +73,4 @@ async function deleteOne(options: IPostDelete): Promise<void> {
     }
 }
 
-export {create, findAll, findOne, update, deleteOne}
+export {create, findAll, findOne, update, updateRating, deleteOne}

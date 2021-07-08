@@ -86,6 +86,19 @@ async function updateOne(options: IPostUpdate, connection?: PoolConnection): Pro
     }
 }
 
+async function updateRating(id:number, type: string, connection?: PoolConnection): Promise<IPostUpdate> {
+    try {
+        const {affectedRows} = await db.query({
+            connection,
+            sql: `UPDATE ?? as p SET p.ratings = p.ratings + ${type === 'up' ? 1 : -1}  WHERE ? `,
+            values: [tableName, {id}]
+        })
+        if (affectedRows > 0) return {id}
+    } catch (e) {
+        throw e
+    }
+}
+
 async function deleteOne(id: number, connection?: PoolConnection): Promise<number> {
     try {
         const {affectedRows} = await db.query({
@@ -99,4 +112,4 @@ async function deleteOne(id: number, connection?: PoolConnection): Promise<numbe
     }
 }
 
-export {tableName, create, findAll, findOne, updateOne, deleteOne}
+export {tableName, create, findAll, findOne, updateOne, updateRating, deleteOne}
