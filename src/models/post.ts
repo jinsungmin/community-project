@@ -86,11 +86,12 @@ async function updateOne(options: IPostUpdate, connection?: PoolConnection): Pro
     }
 }
 
-async function updateRating(id:number, type: string, connection?: PoolConnection): Promise<IPostUpdate> {
+async function updateRating(id:number, type: boolean, connection?: PoolConnection): Promise<IPostUpdate> {
     try {
+        console.log('test::::', type)
         const {affectedRows} = await db.query({
             connection,
-            sql: `UPDATE ?? as p SET p.ratings = p.ratings + ${type === 'up' ? 1 : -1}  WHERE ? `,
+            sql: `UPDATE ?? as p SET p.ratings = p.ratings + ${type ? 1 : -1}  WHERE ? `,
             values: [tableName, {id}]
         })
         if (affectedRows > 0) return {id}

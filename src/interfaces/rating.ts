@@ -3,7 +3,7 @@ export interface IRating {
     postId?: number
     commentId?: number
     userId: number
-    type: string
+    type: boolean
 }
 
 export interface IRatingCreate {
@@ -11,13 +11,21 @@ export interface IRatingCreate {
     postId?: number
     commentId?: number
     userId: number
-    type: string
+    type: boolean
 }
 
 export interface IRatingFindAll {
     userId?: number
     postId?: number
-    type?: string
+    type?: boolean
+    commentId?: number
+}
+
+export interface IRatingFindOne {
+    id?: number
+    userId?: number
+    postId?: number
+    type?: boolean
     commentId?: number
 }
 

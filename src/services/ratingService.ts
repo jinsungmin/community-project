@@ -4,6 +4,7 @@ import {
     IRating,
     IRatingCreate,
     IRatingFindAll,
+    IRatingFindOne,
     IRatingDelete,
     IRatingList,
     IRatingUpdate
@@ -33,9 +34,9 @@ async function findAll(options: IRatingFindAll): Promise<IRatingList> {
     }
 }
 
-async function findOne(id: number): Promise<IRating> {
+async function findOne(options: IRatingFindOne): Promise<IRating> {
     try {
-        const rating = await Rating.findOne({id})
+        const rating = await Rating.findOne(options)
         if (rating) return rating
         throw new Error('not_found')
     } catch (e) {
@@ -62,7 +63,7 @@ async function deleteOne(options: IRatingDelete): Promise<void> {
         const ret: any = await Rating.deleteOne(options.id)
         if (ret) {
             const {postId, type} = temp
-            await Post.updateRating(postId, type === 'up' ? 'down' : 'up')
+            await Post.updateRating(postId, !type)
         }
         if (!ret) throw new Error('not_found')
     } catch (e) {

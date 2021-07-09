@@ -11,8 +11,8 @@ export interface IComment {
 export interface ICommentCreate {
     id?: number
     userId: number
-    postId: number
-    parentId: number
+    postId?: number
+    parentId?: number
     content: string
     createdAt?: Date
     updatedAt?: Date

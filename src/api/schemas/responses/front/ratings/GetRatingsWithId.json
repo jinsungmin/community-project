@@ -8,13 +8,19 @@
       "type": "integer"
     },
     "postId": {
-      "type": "integer"
+      "type": "integer",
+      "nullable": true
     },
     "commentId": {
-      "type": "integer"
+      "type": "integer",
+      "nullable": true
     },
     "type": {
-      "type": "string"
+      "type": "integer",
+      "enum": [
+        1,
+        0
+      ]
     }
   },
   "required": [

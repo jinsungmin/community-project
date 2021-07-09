@@ -5,7 +5,7 @@ export interface IPost {
     title: string
     content: string
     ratings: number
-    ratingList?: Array<{id: number, userId: number, type: string}>
+    ratingList?: Array<{id: number, userId: number, type: boolean}>
     createdAt: Date
     updatedAt: Date
 }

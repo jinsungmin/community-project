@@ -1,6 +1,6 @@
 import {PoolConnection} from 'mysql'
 import {db} from '../loaders'
-import {IRating, IRatingCreate, IRatingFindAll, IRatingList, IRatingUpdate} from '../interfaces/rating'
+import {IRating, IRatingCreate, IRatingFindAll, IRatingFindOne, IRatingList, IRatingUpdate} from '../interfaces/rating'
 import {generateRandomCode} from '../libs/code'
 
 const tableName = 'Ratings'
@@ -49,12 +49,15 @@ async function findAll(options: IRatingFindAll): Promise<IRatingList> {
 }
 
 
-async function findOne(options: { id?: number }): Promise<IRating> {
+async function findOne(options: IRatingFindOne): Promise<IRating> {
     try {
-        const {id} = options
+        const {id, userId, postId, commentId} = options
 
         const where = []
         if (id) where.push(`r.id = ${id}`)
+        if (userId) where.push(`r.userId = ${userId}`)
+        if (postId) where.push(`(r.postId = ${postId})`)
+        if (commentId) where.push(`(r.commentId = ${commentId})`)
 
         const [row] = await db.query({
             sql: `SELECT r.*

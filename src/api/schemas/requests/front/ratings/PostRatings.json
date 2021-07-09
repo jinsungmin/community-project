@@ -11,7 +11,11 @@
       "type": "integer"
     },
     "type": {
-      "type": "string"
+      "type": "integer",
+      "enum": [
+        1,
+        0
+      ]
     }
   },
   "required": [
