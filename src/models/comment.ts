@@ -2,6 +2,7 @@ import {PoolConnection} from 'mysql'
 import {db} from '../loaders'
 import {IComment, ICommentCreate, ICommentFindAll, ICommentList, ICommentUpdate} from '../interfaces/comment'
 import {generateRandomCode} from '../libs/code'
+import {User} from "./index";
 
 const tableName = 'Comments'
 
@@ -32,11 +33,11 @@ async function findAll(options: ICommentFindAll): Promise<ICommentList> {
         if (parentId) where.push(`(c.parentId = ${parentId})`)
 
         const rows: IComment[] = await db.query({
-            sql: `SELECT c.* FROM ?? c
+            sql: `SELECT c.*, u.name as userName FROM ?? c JOIN ?? u on u.id = c.userId
       ${where.length ? `WHERE ${where.join(' AND ')}` : ''}
       ${sort && order ? `ORDER BY c.${sort} ${order}` : ``}
       LIMIT ${start}, ${perPage}`,
-            values: [tableName]
+            values: [tableName, User.tableName]
         })
         const [rowTotal] = await db.query({
             sql: `SELECT COUNT(1) as total FROM ?? c

@@ -7,6 +7,9 @@
     "userId": {
       "type": "integer"
     },
+    "userName": {
+      "type": "string"
+    },
     "postId": {
       "type": "integer"
     },
