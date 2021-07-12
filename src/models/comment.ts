@@ -90,10 +90,11 @@ async function updateOne(options: ICommentUpdate, connection?: PoolConnection): 
 
 async function deleteOne(id: number, connection?: PoolConnection): Promise<number> {
     try {
+        const parentId = id
         const {affectedRows} = await db.query({
             connection,
-            sql: `DELETE FROM ?? WHERE ? `,
-            values: [tableName, {id}]
+            sql: `DELETE FROM ?? as c WHERE ? or ? `,
+            values: [tableName, {id}, {parentId}]
         })
         if (affectedRows > 0) return id
     } catch (e) {
