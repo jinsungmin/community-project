@@ -31,6 +31,7 @@ async function findAll(options: ICommentFindAll): Promise<ICommentList> {
         if (postId) where.push(`(c.postId = ${postId})`)
         if (userId) where.push(`(c.userId = ${userId})`)
         if (parentId) where.push(`(c.parentId = ${parentId})`)
+        else where.push(`(c.parentId is null)`)
 
         const rows: IComment[] = await db.query({
             sql: `SELECT c.*, u.name as userName FROM ?? c JOIN ?? u on u.id = c.userId
@@ -44,6 +45,7 @@ async function findAll(options: ICommentFindAll): Promise<ICommentList> {
       ${where.length ? `WHERE ${where.join(' AND ')}` : ''}`,
             values: [tableName]
         })
+        console.log(rows)
         return {data: rows, total: rowTotal ? rowTotal.total : 0}
     } catch (e) {
         throw e

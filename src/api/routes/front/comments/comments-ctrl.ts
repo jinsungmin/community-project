@@ -14,6 +14,7 @@ async function postComments(req: IRequest, res: Response, next: Function): Promi
 
 async function getComments(req: IRequest, res: Response, next: Function): Promise<void> {
     try {
+        console.log('test:', req.options)
         const {search, sort, order, start, perPage, userId, postId, parentId} = req.options
         const ret = await CommentService.findAll({search, sort, order, start, perPage, userId, postId, parentId})
         res.status(200).json(ret)
