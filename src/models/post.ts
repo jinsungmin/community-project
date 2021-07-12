@@ -9,16 +9,16 @@ const tableRating = 'Ratings'
 
 async function create(options: IPostCreate, connection?: PoolConnection): Promise<IPost> {
     try {
-        const {id = generateRandomCode(8), userId, title, content, createdAt = new Date(), updatedAt = new Date()} = options
+        const {id = generateRandomCode(8), categoryId, userId, title, content, createdAt = new Date(), updatedAt = new Date()} = options
         await db.query({
             connection,
             sql: `INSERT INTO ?? SET ?`,
             values: [
                 tableName,
-                {id, userId, title, content, createdAt, updatedAt}
+                {id, categoryId, userId, title, content, createdAt, updatedAt}
             ]
         })
-        return {id, userId, title, content, ratings: 0, createdAt, updatedAt}
+        return {id, categoryId, userId, title, content, ratings: 0, createdAt, updatedAt}
     } catch (e) {
         throw e
     }
@@ -26,8 +26,10 @@ async function create(options: IPostCreate, connection?: PoolConnection): Promis
 
 async function findAll(options: IPostFindAll): Promise<IPostList> {
     try {
-        const {search, sort, order, start, perPage} = options
+        const {search, categoryId, sort, order, start, perPage} = options
         const where = []
+
+        if (categoryId) where.push(`(p.categoryId = ${categoryId})`)
         if (search) where.push(`(p.title like '%${search}%' OR p.content like '%${search}%')`)
 
         const rows: IPost[] = await db.query({

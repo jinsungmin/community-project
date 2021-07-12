@@ -1,6 +1,9 @@
 {
   "type": "object",
   "properties": {
+    "categoryId": {
+      "type": "integer"
+    },
     "title": {
       "type": "string"
     },

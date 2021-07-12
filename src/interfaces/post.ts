@@ -1,5 +1,6 @@
 export interface IPost {
     id: number
+    categoryId: number
     userId: number
     userName?: string
     title: string
@@ -12,6 +13,7 @@ export interface IPost {
 
 export interface IPostCreate {
     id?: number
+    categoryId: number
     userId: number
     title: string
     content: string
@@ -24,6 +26,7 @@ export interface IPostFindAll {
     sort?: string
     order?: string
     userId?: number
+    categoryId?: number
     start: number
     perPage: number
 }

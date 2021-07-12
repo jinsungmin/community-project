@@ -7,6 +7,9 @@
     "userId": {
       "type": "integer"
     },
+    "categoryId": {
+      "type": "integer"
+    },
     "sort": {
       "type": "string",
       "enum": [

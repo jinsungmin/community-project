@@ -4,6 +4,9 @@
     "id": {
       "type": "integer"
     },
+    "categoryId": {
+      "type": "integer"
+    },
     "userId": {
       "type": "integer"
     },

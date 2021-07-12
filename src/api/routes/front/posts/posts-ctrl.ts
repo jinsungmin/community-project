@@ -3,8 +3,8 @@ import {PostService} from '../../../../services'
 
 async function postPosts(req: IRequest, res: Response, next: Function): Promise<void> {
     try {
-        const {userId, title, content} = req.options
-        const ret = await PostService.create({userId, title, content})
+        const {userId, categoryId, title, content} = req.options
+        const ret = await PostService.create({userId, categoryId, title, content})
         res.status(201).json(ret)
     } catch (e) {
         if (e.message === 'already_in_use') e.status = 409
@@ -14,8 +14,8 @@ async function postPosts(req: IRequest, res: Response, next: Function): Promise<
 
 async function getPosts(req: IRequest, res: Response, next: Function): Promise<void> {
     try {
-        const {search, sort, order, start, perPage, userId} = req.options
-        const ret = await PostService.findAll({search, sort, order, start, perPage, userId})
+        const {search, sort, order, start, perPage, userId, categoryId} = req.options
+        const ret = await PostService.findAll({search, sort, order, start, perPage, userId, categoryId})
         res.status(200).json(ret)
     } catch (e) {
         next(e)
@@ -35,8 +35,8 @@ async function getPostsWithId(req: IRequest, res: Response, next: Function): Pro
 
 async function putPostsWithId(req: IRequest, res: Response, next: Function): Promise<void> {
     try {
-        const {id, title, content} = req.options
-        const post = await PostService.update({id, title, content})
+        const {id, categoryId, title, content} = req.options
+        const post = await PostService.update({id, categoryId, title, content})
         res.status(200).json(post)
     } catch (e) {
         if (e.message === 'not_found') e.status = 404

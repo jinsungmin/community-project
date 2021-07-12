@@ -1,6 +1,9 @@
 {
   "type": "object",
   "properties": {
+    "categoryId": {
+      "type": "integer"
+    },
     "userId": {
       "type": "integer"
     },
@@ -17,6 +20,7 @@
     }
   },
   "required": [
+    "categoryId",
     "userId",
     "title",
     "content"
