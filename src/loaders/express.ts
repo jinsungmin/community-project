@@ -12,7 +12,24 @@ app.set('etag', false)
 app.set('views', path.join(__dirname, '../views'))
 app.set('view engine', 'ejs')
 
-app.use(cors())
+app.use(
+    cors({
+        origin(origin, callback) {
+            if (!origin) callback(null, true)
+            else if (
+                process.env.NODE_ENV !== 'production' &&
+                origin !== 'http://localhost:3000' &&
+                origin !== 'http://localhost:4000'
+            ) {
+                console.log('cors', origin)
+                callback(new Error('Not allowed by CORS'))
+            } else {
+                callback(null, true)
+            }
+        },
+        credentials: true
+    })
+)
 
 app.use(assignId)
 app.use(

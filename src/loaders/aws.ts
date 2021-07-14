@@ -7,7 +7,7 @@ AWS.config.update({
   secretAccessKey: awsConfig.secretAccessKey,
   region: awsConfig.region,
   apiVersions: {
-    s3: '2006-03-01'
+    s3: '2012-10-17'
   }
 })
 const s3 = new AWS.S3()
