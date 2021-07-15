@@ -37,6 +37,7 @@ async function getCommentsWithId(req: IRequest, res: Response, next: Function): 
 async function putCommentsWithId(req: IRequest, res: Response, next: Function): Promise<void> {
     try {
         const {id, content} = req.options
+        console.log(id, content)
         const post = await CommentService.update({id, content})
         res.status(200).json(post)
     } catch (e) {
