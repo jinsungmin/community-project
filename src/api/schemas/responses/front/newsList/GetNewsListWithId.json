@@ -10,8 +10,12 @@
     "title": {
       "type": "string"
     },
-    "author": {
+    "keyword": {
       "type": "string"
+    },
+    "pubDate": {
+      "type": "string",
+      "format": "date-time"
     }
   },
   "required": [

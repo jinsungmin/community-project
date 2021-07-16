@@ -6,37 +6,49 @@ import {
     INewsList
 } from '../interfaces/news'
 
-async function getNews(): Promise<INewsList> {
-    const {data} = await axios({
-        url:"https://news.naver.com/",
-        method: "GET",
-        responseType: "arraybuffer"
-    })
-    console.log("response ok");
-    const bodyDecoded = iconv.decode(data, "euc-kr");
-    const $ = cheerio.load(bodyDecoded);
+async function getNews(keywords: any): Promise<INewsList> {
+    let ret = {data: [], total: 0}
+    let id = 1
 
-    const list_text_inner_arr = $(
-        "#_rankingList0 > li > div > div > div"
-    ).toArray();
+    for (let i = 0; i < keywords.length; i++) {
+        const {data} = await axios({
+            url:`https://news.google.com/rss/search?q=${encodeURIComponent(keywords[i])}+when:1d&hl=ko&gl=KR&ceid=KR:ko`,
+            //responseType: "arraybuffer"
+        })
+        const $ = cheerio.load(data);
+        const list_text_inner_arr = $(
+            "channel > item"
+        ).toArray();
 
-    const result = [];
-    list_text_inner_arr.forEach((div, index: number) => {
-        const aFirst = $(div).find("a").first(); // 첫번째 <a> 태그
-        const path = aFirst.attr("href"); // 첫번째 <a> 태그 url
-        const url = `https://news.naver.com/${path}`; // 도메인을 붙인 url 주소
-        const title = aFirst.text().trim();
+        const result = [];
+        await list_text_inner_arr.map(async (item, index: number) => {
+            let title = $(item).find("title").first(); // 첫번째 <title> 태그
+            title = title.text().trim();
 
-        const aLast = $(div).find("a").last(); // <두번째(마지막) <a>태그
-        const author = aLast.text().trim();
-        result.push({
-            id: index+1,
-            url,
-            title,
-            author,
+            let guid = $(item).find("guid").first(); // 첫번째 <guid> 태그
+            guid = guid.text().trim();
+
+            let test = $(item).text().trim()
+
+            test = test.substring(title.length)
+            let url = test.split(',')[0]
+            url = url.substring(0, url.length - guid.length - 3)
+
+            let pubDate = $(item).find("pubDate").first(); // 첫번째 <title> 태그
+            pubDate = new Date(pubDate.text().trim())
+
+            await ret.data.push({
+                id: id++,
+                keyword: keywords[i],
+                url,
+                title,
+                pubDate
+            });
         });
-    });
-    return {data: result, total: result.length}
+    }
+    ret.total = --id
+
+    return ret
 }
 
 export {getNews}

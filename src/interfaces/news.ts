@@ -2,7 +2,7 @@ export interface INews {
     id: number
     url: string
     title: string
-    author: string
+    pubDate: Date
 }
 
 export type INewsList = IResponseList<INews>
