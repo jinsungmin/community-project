@@ -1,3 +1,3 @@
 export = {
-  host: 'https://dev-api.itdda.com',
+  host: 'https://54.180.143.210:80',
 }

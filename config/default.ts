@@ -25,6 +25,10 @@ export = {
     region: process.env.AWS_REGION,
     tempBucket: 'jinjin-bucket',
     cloudfront: 'https://darj2zud5au9j.cloudfront.net',
-    bucket: 'jinjin-bucket'
+    bucket: 'jinjin-bucket',
+    social: {
+      clientId: '406813698983-btoquhiheu24g2gdagolhdg2snn260q6.apps.googleusercontent.com',
+      clientSecret: 'SCHRcvCU3zXXKsqhFuRsHXS9'
+    }
   }
 }
