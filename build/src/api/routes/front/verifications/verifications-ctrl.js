@@ -4,8 +4,8 @@ exports.postVerificationsConfirm = exports.postVerifications = void 0;
 const services_1 = require("../../../../services");
 async function postVerifications(req, res, next) {
     try {
-        const { type, phone } = req.options;
-        const ret = await services_1.VerificationService.create({ phone, type });
+        const { type, email } = req.options;
+        const ret = await services_1.VerificationService.create({ email, type });
         res.status(201).json(ret);
     }
     catch (e) {
@@ -20,8 +20,8 @@ exports.postVerifications = postVerifications;
 async function postVerificationsConfirm(req, res, next) {
     try {
         const { code, codeToken } = req.options;
-        const phoneToken = await services_1.VerificationService.confirm(code, codeToken);
-        res.status(200).json({ phoneToken });
+        const emailToken = await services_1.VerificationService.confirm(code, codeToken);
+        res.status(200).json({ emailToken });
     }
     catch (e) {
         if (e.message === 'expired_token')

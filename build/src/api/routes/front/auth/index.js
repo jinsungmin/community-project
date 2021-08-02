@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postAuthRefresh = exports.postAuthReset = exports.getAuthRegisterName = exports.getAuthRegisterEmail = exports.postAuthRegister = exports.putAuth = exports.postAuth = void 0;
+exports.postAuthRefresh = exports.postAuthReset = exports.getAuthRegisterName = exports.getAuthRegisterEmail = exports.postAuthRegister = exports.putAuth = exports.getAuth = exports.postAuth = void 0;
 const default_1 = require("../../default");
 const ctrl = __importStar(require("./auth-ctrl"));
 const postAuth = new default_1.ApiRouter({
@@ -36,6 +36,20 @@ const postAuth = new default_1.ApiRouter({
     handler: ctrl.postAuth
 });
 exports.postAuth = postAuth;
+const getAuth = new default_1.ApiRouter({
+    name: '',
+    method: 'get',
+    summary: '유저 정보 조회',
+    tags: ['Auth'],
+    roles: ['owner'],
+    responses: {
+        201: { schema: 'responses/front/auth/getAuth' },
+        401: { description: '만료된 토큰' },
+        409: { description: 'already_added' }
+    },
+    handler: ctrl.getAuth
+});
+exports.getAuth = getAuth;
 const putAuth = new default_1.ApiRouter({
     name: '',
     method: 'put',

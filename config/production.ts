@@ -1,14 +1,19 @@
 export = {
-  host: 'https://54.180.143.210:80',
+  host: 'https://54.78.142.147:4000',
   database: {
-    connectionLimit: 100,
+    database: 'TEST',
+    connectionLimit: 20,
     timezone: 'utc',
     charset: 'utf8mb4',
     debug: []
   },
   redis: {
-    host: 'redis',
+    host: 'localhost',
     port: 6379
+  },
+  swagger: {
+    id: 'jinjin',
+    password: '3380'
   },
   aws: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,

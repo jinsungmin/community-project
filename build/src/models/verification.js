@@ -17,31 +17,31 @@ const code_1 = require("../libs/code");
 const tableName = 'Verifications';
 exports.tableName = tableName;
 async function create(options, connection) {
-    const { phone, type } = options;
+    const { email, type } = options;
     try {
         const code = code_1.generateRandomCode(6);
         const { insertId } = await loaders_1.db.query({
             connection,
             sql: `INSERT INTO ?? SET ?
         ON DUPLICATE KEY UPDATE code = VALUES(code), confirmed = false, used = false, createdAt = NOW()`,
-            values: [tableName, { phone, code, type }]
+            values: [tableName, { email, code, type }]
         });
-        return { id: insertId, phone, code: code.toString(), type, confirmed: false, used: false };
+        return { id: insertId, email, code: code.toString(), type, confirmed: false, used: false };
     }
     catch (e) {
         throw e;
     }
 }
 exports.create = create;
-async function findOne({ id, type, phone, confirmed, used }) {
+async function findOne({ id, type, email, confirmed, used }) {
     try {
         const where = [];
         if (type)
             where.push(`type = '${type}'`);
         if (id)
             where.push(`id = ${id}`);
-        if (phone)
-            where.push(`phone = '${phone}'`);
+        if (email)
+            where.push(`email = '${email}'`);
         if (confirmed)
             where.push(`confirmed = ${confirmed}`);
         if (typeof used !== 'undefined')

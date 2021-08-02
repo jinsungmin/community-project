@@ -5,15 +5,15 @@ const models_1 = require("../models");
 const jwt_1 = require("../libs/jwt");
 async function create(options) {
     try {
-        const { type, phone } = options;
+        const { type, email } = options;
         if (type === 'reset') {
-            const user = await models_1.User.findOne({ phone });
+            const user = await models_1.User.findOne({ accountId: email });
             if (!user) {
                 throw new Error('not_found');
             }
         }
         else {
-            const user = await models_1.User.findOne({ phone });
+            const user = await models_1.User.findOne({ accountId: email });
             if (user)
                 throw new Error('already_in_use');
         }

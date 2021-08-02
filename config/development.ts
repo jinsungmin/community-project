@@ -1,5 +1,5 @@
 export = {
-  host: 'https://54.180.143.210:80',
+  host: 'https://54.78.142.147:4000',
   redis: {
     host: 'redis',
     port: 6379

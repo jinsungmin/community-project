@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postAuthRefresh = exports.postAuthReset = exports.getAuthRegisterName = exports.getAuthRegisterEmail = exports.postAuthRegister = exports.putAuth = exports.postAuth = void 0;
+exports.postAuthRefresh = exports.postAuthReset = exports.getAuthRegisterName = exports.getAuthRegisterEmail = exports.postAuthRegister = exports.putAuth = exports.getAuth = exports.postAuth = void 0;
 const services_1 = require("../../../../services");
 async function postAuth(req, res, next) {
     try {
         const { email, password } = req.options;
         const { accessToken, refreshToken } = await services_1.AuthService.userSignIn(email, password);
         const user = await services_1.UserService.findOne({ email });
-        res.status(200).json({ accessToken, refreshToken, user: user });
+        res.status(200).json({ accessToken, refreshToken, user });
     }
     catch (e) {
         if (e.message === 'not_found')
@@ -16,6 +16,18 @@ async function postAuth(req, res, next) {
     }
 }
 exports.postAuth = postAuth;
+async function getAuth(req, res, next) {
+    try {
+        const user = await services_1.UserService.findOne({ id: req.user.id });
+        res.status(200).json({ user });
+    }
+    catch (e) {
+        if (e.message === 'not_found')
+            e.status = 404;
+        next(e);
+    }
+}
+exports.getAuth = getAuth;
 async function putAuth(req, res, next) {
     try {
         const { password, newPassword } = req.options;
@@ -34,8 +46,8 @@ async function putAuth(req, res, next) {
 exports.putAuth = putAuth;
 async function postAuthRegister(req, res, next) {
     try {
-        const { email, name, phone, phoneToken, profileUrl, password } = req.options;
-        const ret = await services_1.AuthService.userSignUp({ email, name, phone, phoneToken, profileUrl, password });
+        const { email, name, emailToken, profileUrl, password } = req.options;
+        const ret = await services_1.AuthService.userSignUp({ email, name, emailToken, profileUrl, password });
         res.status(201).json(ret);
     }
     catch (e) {

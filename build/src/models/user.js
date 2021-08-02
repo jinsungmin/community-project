@@ -18,7 +18,7 @@ const tableName = 'Users';
 exports.tableName = tableName;
 async function create(options, connection) {
     try {
-        const { name, phone, profileUrl, createdAt = new Date() } = options;
+        const { name, email, profileUrl, createdAt = new Date() } = options;
         const { insertId } = await loaders_1.db.query({
             connection,
             sql: `INSERT INTO ?? SET ?`,
@@ -26,13 +26,13 @@ async function create(options, connection) {
                 tableName,
                 {
                     name,
-                    phone,
+                    email,
                     profileUrl,
                     createdAt
                 }
             ]
         });
-        return { id: insertId, name, phone, profileUrl, createdAt };
+        return { id: insertId, name, email, profileUrl, createdAt };
     }
     catch (e) {
         throw e;
@@ -41,14 +41,12 @@ async function create(options, connection) {
 exports.create = create;
 async function findOne(options) {
     try {
-        const { id, phone, name, accountId } = options;
+        const { id, name, accountId } = options;
         const where = [];
         if (id)
             where.push(`u.id = ${id}`);
         if (name)
             where.push(`u.name = '${name}'`);
-        if (phone)
-            where.push(`u.phone = '${phone}'`);
         if (accountId)
             where.push(`a.accountId = '${accountId}'`);
         const [row] = await loaders_1.db.query({

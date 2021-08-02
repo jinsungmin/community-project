@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 export = {
-  host: 'https://54.180.143.210:80',
+  host: 'https://54.78.142.147:4000',
   database: {
     database: 'TEST',
     connectionLimit: 20,

@@ -20,18 +20,18 @@ const loaders_1 = require("../loaders");
 async function userSignUp(options) {
     const connection = await loaders_1.db.beginTransaction();
     try {
-        const { password, email, profileUrl, phoneToken } = options, data = __rest(options, ["password", "email", "profileUrl", "phoneToken"]);
+        const { password, email, profileUrl, emailToken } = options, data = __rest(options, ["password", "email", "profileUrl", "emailToken"]);
         const verification = await models_1.Verification.findOne({
-            phone: options.phone,
+            email: options.email,
             type: 'register',
             confirmed: true,
             used: false
         });
         if (!verification)
             throw { status: 401, message: 'expired_token' };
-        await jwt_1.decodeToken(phoneToken, { subject: verification.id.toString(), algorithms: ['RS256'] });
+        await jwt_1.decodeToken(emailToken, { subject: verification.id.toString(), algorithms: ['RS256'] });
         await models_1.Verification.update({ id: verification.id, used: true }, connection);
-        const user = await models_1.User.create(Object.assign({}, data), connection);
+        const user = await models_1.User.create(Object.assign(Object.assign({}, data), { email }), connection);
         const accountInfo = await models_1.Account.create({ userId: user.id, type: 'email', accountId: email, password }, connection);
         /*
         if (profileUrl) {
@@ -53,8 +53,9 @@ exports.userSignUp = userSignUp;
 async function userSignIn(email, password) {
     try {
         const account = await models_1.Account.findOne({ type: 'email', accountId: email });
+        const accountObj = JSON.parse(account.accountInfo.toString());
         if (account &&
-            libs_1.code.verifyPassword(password, account.accountInfo.password, account.accountInfo.salt, code_1.passwordIterations.user)) {
+            libs_1.code.verifyPassword(password, accountObj.password, accountObj.salt, code_1.passwordIterations.user)) {
             const accessToken = await libs_1.jwt.createAccessToken({ userId: account.userId });
             const refreshToken = await libs_1.jwt.createRefreshToken({ userId: account.userId }, account.accountInfo.salt);
             return { accessToken, refreshToken };
@@ -86,20 +87,20 @@ async function userUpdatePassword(id, password, newPassword) {
     }
 }
 exports.userUpdatePassword = userUpdatePassword;
-async function userResetPassword(phone, password, phoneToken) {
+async function userResetPassword(email, password, emailToken) {
     const connection = await loaders_1.db.beginTransaction();
     try {
         const verification = await models_1.Verification.findOne({
-            phone,
+            email,
             type: 'reset',
             confirmed: true,
             used: false
         });
         if (!verification)
             throw { status: 401, message: 'expired_token' };
-        await libs_1.jwt.decodeToken(phoneToken, { subject: verification.id.toString(), algorithms: ['RS256'] });
+        await libs_1.jwt.decodeToken(emailToken, { subject: verification.id.toString(), algorithms: ['RS256'] });
         await models_1.Verification.update({ id: verification.id, used: true }, connection);
-        const user = await models_1.User.findOne({ phone });
+        const user = await models_1.User.findOne({ accountId: email });
         if (user) {
             await models_1.Account.updatePassword({ userId: user.id, password });
             await loaders_1.db.commit(connection);
