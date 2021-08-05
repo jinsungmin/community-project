@@ -1,7 +1,7 @@
 const {addColors, createLogger, log, format, transports} = require('winston')
 const fluentLogger = require('fluent-logger')
 
-const fluentTag = 'service.itdda.backend'
+const fluentTag = 'service.community.backend'
 const fluentConfig = {
   host: 'fluentd',
   port: 24224,
