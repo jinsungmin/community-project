@@ -1,5 +1,5 @@
 export = {
-  host: 'https://54.78.142.147:4000',
+  host: 'https://server.dev-jinjin.com',
   database: {
     database: 'TEST',
     connectionLimit: 20,
