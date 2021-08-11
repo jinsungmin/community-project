@@ -1,11 +1,11 @@
 #!/bin/bash
 AWS_PROFILE=$1
-IMAGE_NAME=backend-test
-STACK_NAME=backend
-TARGET=backend
-REGISTRY_URL=ec2-54-180-143-210.ap-northeast-2.compute.amazonaws.com/${IMAGE_NAME}:latest
-HOST=user@54.180.143.210:80
-APP_PATH=/home/ubuntu/${STACK_NAME}
+IMAGE_NAME=community
+STACK_NAME=community
+TARGET=community
+REGISTRY_URL=050339905937.dkr.ecr.ap-northeast-2.amazonaws.com/${IMAGE_NAME}:latest
+HOST=user@test.dev-jinjin.com
+APP_PATH=/home/app/${STACK_NAME}
 DOCKER_COMPOSE=docker-compose.yml
 DOCKER_COMPOSE=docker-compose.yml
 PEM_FILE=~/.ssh/jinjin.cer

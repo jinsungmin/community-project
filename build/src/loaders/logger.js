@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.silly = exports.debug = exports.verbose = exports.http = exports.info = exports.warn = exports.error = exports.fatal = exports.errorStream = exports.infoStream = void 0;
 const { addColors, createLogger, log, format, transports } = require('winston');
 const fluentLogger = require('fluent-logger');
-const fluentTag = 'service.itdda.backend';
+const fluentTag = 'service.community.backend';
 const fluentConfig = {
     host: 'fluentd',
     port: 24224,

@@ -1,6 +1,6 @@
 "use strict";
 module.exports = {
-    host: 'https://54.180.143.210:80',
+    host: 'https://test.dev-jinjin.com',
     redis: {
         host: 'redis',
         port: 6379
