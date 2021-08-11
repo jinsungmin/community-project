@@ -4,7 +4,7 @@ import * as ctrl from './auth-ctrl'
 const postAuth = new ApiRouter({
   name: '',
   method: 'post',
-  summary: '유저 로그인@@',
+  summary: '유저 로그인@@@',
   schema: 'requests/front/auth/PostAuth',
   tags: ['Auth'],
   isPublic: true,
