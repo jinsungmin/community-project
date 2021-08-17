@@ -1,3 +1,3 @@
 export = {
-  host: 'https://test.dev-jinjin.com',
+  host: 'https://server.dev-jinjin.com',
 }

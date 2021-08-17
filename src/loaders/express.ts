@@ -20,7 +20,7 @@ app.use(
                 process.env.NODE_ENV !== 'production' &&
                 origin !== 'http://localhost:3000' &&
                 origin !== 'http://localhost:4000' &&
-                origin !== 'https://test.dev-jinjin.com' &&
+                origin !== 'https://server.dev-jinjin.com' &&
                 origin !== 'https://web.dev-jinjin.com'
             ) {
                 console.log('cors', origin)
