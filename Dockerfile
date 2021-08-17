@@ -1,5 +1,5 @@
 #!/bin/bash
-FROM node:14-alpine
+FROM node:14-alpine AS build
 # 특정 버전 node 이미지를 받아옵니다.
 MAINTAINER jinjin
 # 작성자의 이름을 적습니다.
@@ -18,4 +18,3 @@ COPY . .
 RUN npm run build
 # typescript로 작성된 node이므로 build를 하여 javascript 파일로 컴파일 해줍니다.
 CMD ["npm", "run", "local"]
-# 해당 이미지가 실행될때 실행될 명령어입니다.

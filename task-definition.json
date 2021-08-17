@@ -5,15 +5,7 @@
     {
       "dnsSearchDomains": null,
       "environmentFiles": null,
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "secretOptions": null,
-        "options": {
-          "awslogs-group": "/ecs/test-task",
-          "awslogs-region": "ap-northeast-2",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },
+      "logConfiguration": null,
       "entryPoint": null,
       "portMappings": [
         {
@@ -37,7 +29,7 @@
       "memoryReservation": 500,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "050339905937.dkr.ecr.ap-northeast-2.amazonaws.com/community:latest",
+      "image": "050339905937.dkr.ecr.ap-northeast-2.amazonaws.com/community:e6161b00170866f24d1faf9af583bcdc8bd97a6a",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -54,42 +46,24 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "testContainer"
+      "name": "community-server-container"
     }
   ],
   "placementConstraints": [],
-  "memory": "2048",
-  "taskRoleArn": null,
+  "memory": "500",
+  "taskRoleArn": "arn:aws:iam::050339905937:role/ecsTaskExecutionRole",
   "compatibilities": [
-    "EC2",
-    "FARGATE"
+    "EXTERNAL",
+    "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:050339905937:task-definition/test-task:2",
-  "family": "test-task",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:050339905937:task-definition/community-server-task:3",
+  "family": "community-server-task",
   "requiresAttributes": [
     {
       "targetId": null,
       "targetType": null,
       "value": null,
-      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "ecs.capability.execution-role-awslogs"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
       "name": "com.amazonaws.ecs.capability.ecr-auth"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
     },
     {
       "targetId": null,
@@ -101,28 +75,22 @@
       "targetId": null,
       "targetType": null,
       "value": null,
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
       "name": "ecs.capability.execution-role-ecr-pull"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "ecs.capability.task-eni"
     }
   ],
   "pidMode": null,
   "requiresCompatibilities": [
-    "FARGATE"
+    "EC2"
   ],
-  "networkMode": "awsvpc",
-  "cpu": "512",
-  "revision": 2,
+  "networkMode": null,
+  "cpu": "256",
+  "revision": 3,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
