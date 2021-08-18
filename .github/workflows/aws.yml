@@ -30,8 +30,8 @@ jobs:
 
     - name: Push .env to directory
       run: |
-        git config user.email jinsm807@gmail.com
-        git config user.name jinsm
+        git config user.email "jinsm807@gmail.com"
+        git config user.name "jinsm"
         git add .
         git commit -m "environment variables"
 
