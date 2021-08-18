@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "properties": {
+    "user": {"$ref": "#/components/schemas/responses~1front~1users~1GetUsers"}
+  },
+  "required": ["user"],
+  "additionalProperties": false
+}

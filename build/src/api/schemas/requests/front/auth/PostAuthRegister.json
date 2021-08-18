@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[\\w\\W가-힣]{2,20}$"
+    },
+    "password": {
+      "type": "string",
+      "pattern": "^[0-9a-zA-Z!@#$%^&*()?+-_~=\/]{6,40}$"
+    },
+    "emailToken": {
+      "type": "string"
+    },
+    "profileUrl": {
+      "type": "string",
+      "format": "uri-reference",
+      "nullable": true
+    }
+  },
+  "required": [
+    "email",
+    "name",
+    "password",
+    "emailToken"
+  ],
+  "additionalProperties": false
+}

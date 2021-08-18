@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {"$ref": "#/components/schemas/responses~1admin~1administrators~1GetAdministratorsWithId"}
+    },
+    "total": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "data",
+    "total"
+  ],
+  "additionalProperties": false
+}

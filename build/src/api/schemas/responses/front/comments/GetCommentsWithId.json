@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "userId": {
+      "type": "integer"
+    },
+    "userName": {
+      "type": "string"
+    },
+    "postId": {
+      "type": "integer"
+    },
+    "parentId": {
+      "type": "integer"
+    },
+    "content": {
+      "type": "string",
+      "maxLength": 1000
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "id",
+    "userId",
+    "postId",
+    "createdAt",
+    "updatedAt"
+  ],
+  "additionalProperties": false
+}

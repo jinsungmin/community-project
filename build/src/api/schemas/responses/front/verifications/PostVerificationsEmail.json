@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string"
+    },
+    "codeToken": {
+      "type": "string"
+    },
+    "expireAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "code": {
+      "type": "string",
+      "pattern": "^\\d{6}$"
+    }
+  },
+  "required": [
+    "email",
+    "expireAt"
+  ],
+  "additionalProperties": false
+}

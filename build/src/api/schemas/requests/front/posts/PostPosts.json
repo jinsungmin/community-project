@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "categoryId": {
+      "type": "integer"
+    },
+    "userId": {
+      "type": "integer"
+    },
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string",
+      "maxLength": 1000
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "categoryId",
+    "userId",
+    "title",
+    "content"
+  ],
+  "additionalProperties": false
+}

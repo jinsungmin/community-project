@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "userId": {
+      "type": "integer"
+    },
+    "postId": {
+      "type": "integer"
+    },
+    "parentId": {
+      "type": "integer"
+    },
+    "content": {
+      "type": "string",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "userId",
+    "postId",
+    "content"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "properties": {
+    "userId": {
+      "type": "integer"
+    },
+    "postId": {
+      "type": "integer"
+    },
+    "commentId": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "integer",
+      "enum": [
+        1,
+        0
+      ]
+    }
+  },
+  "required": [
+    "userId",
+    "type"
+  ],
+  "additionalProperties": false
+}
