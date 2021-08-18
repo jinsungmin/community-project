@@ -15,6 +15,16 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       
+    - name: run hello action
+      id: hello-action
+      uses: jinsungmin/community-project@main
+      env:
+        AWS_RDS_HOST: ${{ secrets.AWS_RDS_HOST }}
+        AWS_RDS_USER: ${{ secrets.AWS_RDS_USER }}
+        AWS_RDS_PW: ${{ secrets.AWS_RDS_PW }}
+        MAILER_ID: ${{ secrets.MAILER_ID }}
+        MAILER_PW: ${{ secrets.MAILER_PW }}
+      
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -29,11 +39,6 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
-        AWS_RDS_HOST: ${{ secrets.AWS_RDS_HOST }}
-        AWS_RDS_USER: ${{ secrets.AWS_RDS_USER }}
-        AWS_RDS_PW: ${{ secrets.AWS_RDS_PW }}
-        MAILER_ID: ${{ secrets.MAILER_ID }}
-        MAILER_PW: ${{ secrets.MAILER_PW }}
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: community
         IMAGE_TAG: ${{ github.sha }}
