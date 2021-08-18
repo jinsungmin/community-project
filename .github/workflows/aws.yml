@@ -23,6 +23,17 @@ jobs:
         echo AWS_RDS_PW: ${{ secrets.AWS_RDS_PW }} >> .env
         echo MAILER_ID: ${{ secrets.MAILER_ID }} >> .env
         echo MAILER_PW: ${{ secrets.MAILER_PW }} >> .env
+    
+    - name: Delete gitignore
+      run: |
+        rm .gitignore
+
+    - name: Push .env to directory
+      run: |
+        git config user.email jinsm807@gmail.com
+        git config user.name jinsm
+        git add .
+        git commit -m "environment variables"
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
