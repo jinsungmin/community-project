@@ -18,9 +18,9 @@ interface IQuery {
 
 async function init(): Promise<void> {
   try {
-    const username = 'user'
-    const password = 'password123!'
-    const host = 'docker-mysql.cpt2pt8unhur.ap-northeast-2.rds.amazonaws.com'
+    const username = process.env.AWS_RDS_USER
+    const password = process.env.AWS_RDS_PW
+    const host = process.env.AWS_RDS_HOST
     const port = 3306
     const dbname = 'docker-mysql'
     const config = {

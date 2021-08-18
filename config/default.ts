@@ -23,8 +23,8 @@ export = {
     account: {
       service: 'gmail',
       auth: {
-        user: 'jinsm404@gmail.com',
-        pass: 'weplanet_1024'
+        user: process.env.MAILER_ID,
+        pass: process.env.PW
       }
     },
     sender: ['jinsm404@gmail.com']
@@ -37,8 +37,8 @@ export = {
     cloudfront: 'https://darj2zud5au9j.cloudfront.net',
     bucket: 'jinjin-bucket',
     social: {
-      clientId: '406813698983-btoquhiheu24g2gdagolhdg2snn260q6.apps.googleusercontent.com',
-      clientSecret: 'SCHRcvCU3zXXKsqhFuRsHXS9'
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_SECRET
     }
   }
 }
