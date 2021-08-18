@@ -15,7 +15,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       
-    - name: run hello action
+    - name: run action
       id: hello-action
       uses: jinsungmin/community-project@main
       env:
