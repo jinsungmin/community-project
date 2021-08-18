@@ -1,0 +1,80 @@
+version: '3.7'
+services:
+  backend:
+    image: 050339905937.dkr.ecr.ap-northeast-2.amazonaws.com/community:latest
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+    networks:
+      - inbound
+      - backend
+    logging:
+      driver: json-file
+      options:
+        max-file: '10'
+        max-size: '100m'
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      labels:
+        - traefik.enable=true
+        - traefik.docker.lbswarm=true
+        - traefik.docker.network=inbound
+        - traefik.http.routers.backend.rule=Host(`server.dev-jinjin.com`)
+        - traefik.http.routers.backend.entrypoints=websecure
+        - traefik.http.routers.backend.tls=true
+        - traefik.http.routers.backend.tls.certresolver=community
+        - traefik.http.services.backend-service.loadbalancer.server.port=5000
+
+  traefik:
+    image: library/traefik:2.3.2
+    command:
+      #- --log.level=DEBUG
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.swarmMode=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesResolvers.community.acme.httpchallenge=true
+      - --certificatesResolvers.community.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.community.acme.storage=/letsencrypt/acme.json
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+      - target: 443
+        published: 443
+        protocol: tcp
+        mode: host
+    volumes:
+      - letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - inbound
+    logging:
+      driver: json-file
+      options:
+        max-file: '5'
+        max-size: '20m'
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  letsencrypt:
+
+networks:
+  inbound:
+    name: inbound
+  backend:
+    name: backend

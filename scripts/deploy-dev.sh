@@ -1,12 +1,11 @@
 #!/bin/bash
-AWS_PROFILE=$1
+AWS_PROFILE=default
 IMAGE_NAME=community
 STACK_NAME=community
-TARGET=community
+TARGET=backend
 REGISTRY_URL=050339905937.dkr.ecr.ap-northeast-2.amazonaws.com/${IMAGE_NAME}:latest
-HOST=user@test.dev-jinjin.com
-APP_PATH=/home/app/${STACK_NAME}
-DOCKER_COMPOSE=docker-compose.yml
+HOST=ec2-user@3.35.139.255
+APP_PATH=/home/ec2-user/${STACK_NAME}
 DOCKER_COMPOSE=docker-compose.yml
 PEM_FILE=~/.ssh/jinjin.cer
 

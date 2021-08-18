@@ -1,5 +1,4 @@
 import * as dotenv from 'dotenv'
-const core = require('@actions/core')
 
 dotenv.config()
 

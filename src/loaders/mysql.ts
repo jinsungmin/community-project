@@ -2,7 +2,6 @@ import config from 'config'
 import mysql, {PoolConnection} from 'mysql'
 import {logger} from './'
 import {code as Code} from '../libs'
-const core = require('@actions/core')
 
 const dbConfig: Dictionary = config.get('database')
 
