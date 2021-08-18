@@ -6,6 +6,23 @@ on:
 name: Deploy to Amazon ECS
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Hello
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: run action
+        id: hello-action
+        uses: jinsungmin/community-project@main
+        env:
+          AWS_RDS_HOST: ${{ secrets.AWS_RDS_HOST }}
+          AWS_RDS_USER: ${{ secrets.AWS_RDS_USER }}
+          AWS_RDS_PW: ${{ secrets.AWS_RDS_PW }}
+          MAILER_ID: ${{ secrets.MAILER_ID }}
+          MAILER_PW: ${{ secrets.MAILER_PW }}
+      
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
@@ -14,17 +31,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-      
-    - name: run hello action
-      id: hello-action
-      uses: jinsungmin/community-project@main
-      env:
-        AWS_RDS_HOST: ${{ secrets.AWS_RDS_HOST }}
-        AWS_RDS_USER: ${{ secrets.AWS_RDS_USER }}
-        AWS_RDS_PW: ${{ secrets.AWS_RDS_PW }}
-        MAILER_ID: ${{ secrets.MAILER_ID }}
-        MAILER_PW: ${{ secrets.MAILER_PW }}
-      
+        
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
