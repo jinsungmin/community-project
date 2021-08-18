@@ -24,7 +24,7 @@ export = {
       service: 'gmail',
       auth: {
         user: process.env.MAILER_ID,
-        pass: process.env.PW
+        pass: process.env.MAILER_PW
       }
     },
     sender: ['jinsm404@gmail.com']

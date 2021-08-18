@@ -19,8 +19,8 @@ export = {
     account: {
       service: 'gmail',
       auth: {
-        user: 'jinsm404@gmail.com',
-        pass: 'weplanet_1024'
+        user: process.env.MAILER_ID,
+        pass: process.env.MAILER_PW
       }
     },
     sender: ['jinsm404@gmail.com']

@@ -24,6 +24,7 @@ async function create(options: IVerificationCreate): Promise<Dictionary> {
     if (process.env.NODE_ENV !== 'production') {
       ret.code = code
     }
+    await sendVerifyEmail(email, code)  // 인증 코드 발송
     return ret
   } catch (e) {
     if (e.code === 'ER_DUP_ENTRY') {
