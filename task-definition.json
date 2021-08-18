@@ -29,7 +29,7 @@
       "memoryReservation": 500,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "050339905937.dkr.ecr.ap-northeast-2.amazonaws.com/community:e6161b00170866f24d1faf9af583bcdc8bd97a6a",
+      "image": "050339905937.dkr.ecr.ap-northeast-2.amazonaws.com/community:latest",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -46,7 +46,7 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "community-server-container"
+      "name": "community-container"
     }
   ],
   "placementConstraints": [],
@@ -56,7 +56,7 @@
     "EXTERNAL",
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:050339905937:task-definition/community-server-task:3",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:050339905937:task-definition/community-server-task:18",
   "family": "community-server-task",
   "requiresAttributes": [
     {
@@ -90,7 +90,7 @@
   ],
   "networkMode": null,
   "cpu": "256",
-  "revision": 3,
+  "revision": 18,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
