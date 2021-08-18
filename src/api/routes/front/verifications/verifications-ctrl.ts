@@ -25,4 +25,18 @@ async function postVerificationsConfirm(req: IRequest, res: Response, next: Func
   }
 }
 
-export {postVerifications, postVerificationsConfirm}
+async function postVerificationsEmail(req: IRequest, res: Response, next: Function) {
+  try {
+    const {email, type} = req.options
+    const result = await VerificationService.createEmail({email, type})
+    res
+        .status(200)
+        .json({email: result.email, code: result.code, codeToken: result.codeToken, expireAt: result.expireAt})
+  } catch (e) {
+    if (e.message === 'already_in_use') e.status = 401
+    else if (e.message === 'wrong_code') e.status = 409
+    next(e)
+  }
+}
+
+export {postVerifications, postVerificationsConfirm, postVerificationsEmail}

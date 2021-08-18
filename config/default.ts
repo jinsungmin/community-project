@@ -19,6 +19,16 @@ export = {
     id: 'jinjin',
     password: '3380'
   },
+  mail: {
+    account: {
+      service: 'gmail',
+      auth: {
+        user: 'jinsm404@gmail.com',
+        pass: 'weplanet_1024'
+      }
+    },
+    sender: ['jinsm404@gmail.com']
+  },
   aws: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,

@@ -34,4 +34,19 @@ const postVerificationsConfirm = new ApiRouter({
   handler: ctrl.postVerificationsConfirm
 })
 
-export {postVerifications, postVerificationsConfirm}
+const postVerificationsEmail = new ApiRouter({
+  name: 'email',
+  method: 'post',
+  summary: '이메일 인증',
+  schema: 'requests/front/verifications/PostVerificationsEmail',
+  tags: ['Verifications'],
+  isPublic: true,
+  responses: {
+    200: {schema: 'responses/front/verifications/PostVerificationsEmail'},
+    401: {description: 'not_found'},
+    409: {description: 'not_found'}
+  },
+  handler: ctrl.postVerificationsEmail
+})
+
+export {postVerifications, postVerificationsConfirm, postVerificationsEmail}

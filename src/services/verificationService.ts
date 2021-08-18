@@ -1,6 +1,8 @@
-import {User, Verification} from '../models'
+import {User, Verification, Account} from '../models'
 import {IVerification, IVerificationCreate} from '../interfaces/verification'
 import {createToken, decodeToken} from '../libs/jwt'
+import {mailer} from '../loaders'
+import {sendVerifyEmail} from "../loaders/mailer";
 
 async function create(options: IVerificationCreate): Promise<Dictionary> {
   try {
@@ -60,4 +62,38 @@ async function confirm(code: string, codeToken: string): Promise<string> {
   }
 }
 
-export {create, findOne, confirm}
+async function createEmail(options: IVerificationCreate): Promise<any> {
+  try {
+    const {type, email} = options
+    if (type === 'reset') {
+      const account = await Account.findOne({accountId: email})
+      const user = await User.findOne({id: account.userId})
+      if (!user) throw new Error('not_found')
+    }
+    if (type === 'register') {
+      const verification = await Verification.findOne({type, email})
+      if (verification && verification.confirmed && verification.used) {
+        throw new Error('already_in_use')
+      }
+    }
+    const {id, code} = await Verification.create(options)
+    const exp = Math.floor(Date.now() / 1000) + 3 * 60
+    const expireAt = new Date(exp * 1000)
+    const codeToken = await createToken({sub: id.toString(), exp}, {algorithm: 'RS256'})
+    const ret: any = {email, code, codeToken, expireAt}
+
+    await sendVerifyEmail(email, code)  // 인증 코드 발송
+    /*
+    if (process.env.NODE_ENV !== 'production') {
+      ret.code = code
+    } */
+    return ret
+  } catch (e) {
+    if (e.code === 'ER_DUP_ENTRY') {
+      throw new Error('already_in_use')
+    }
+    throw e
+  }
+}
+
+export {create, findOne, confirm, createEmail}
