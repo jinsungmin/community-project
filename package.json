@@ -11,7 +11,7 @@
   },
   "private": true,
   "scripts": {
-    "build": " rm -rf ./build && ./node_modules/typescript/bin/tsc && npm run add-assets",
+    "build": "rm -rf ./build && ./node_modules/typescript/bin/tsc && npm run add-assets",
     "add-assets": "copyfiles -u 1 './src/**/!(*.js|*.jsx|*.map|*.ts|*.tsx)' ./build/src",
     "local": "NODE_ENV=test nodemon --exec ts-node --transpile-only ./src/app.ts",
     "dev": "NODE_ENV=development ts-node --transpile-only ./src/app.ts",
