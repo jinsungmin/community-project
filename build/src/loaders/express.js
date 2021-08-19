@@ -22,7 +22,7 @@ app.use(cors_1.default({
         else if (process.env.NODE_ENV !== 'production' &&
             origin !== 'http://localhost:3000' &&
             origin !== 'http://localhost:4000' &&
-            origin !== 'https://server.dev-jinjin.com' &&
+            origin !== 'https://backend.dev-jinjin.com' &&
             origin !== 'https://web.dev-jinjin.com') {
             console.log('cors', origin);
             callback(new Error('Not allowed by CORS'));

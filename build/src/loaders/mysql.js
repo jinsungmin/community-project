@@ -8,7 +8,6 @@ const config_1 = __importDefault(require("config"));
 const mysql_1 = __importDefault(require("mysql"));
 const _1 = require("./");
 const libs_1 = require("../libs");
-const core = require('@actions/core');
 const dbConfig = config_1.default.get('database');
 let pool;
 async function init() {

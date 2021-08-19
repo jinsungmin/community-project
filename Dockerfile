@@ -3,12 +3,16 @@ FROM node:14-alpine
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 
-EXPOSE 5000
+EXPOSE 4000
+HEALTHCHECK --interval=30s --timeout=10s CMD wget -qO- "localhost:4000/health"
 
 WORKDIR /app
 
-RUN npm install -g serve
+COPY ./package.json ./
+RUN npm i --only=prod
 
-COPY build ./build
+COPY ./.env ./
+COPY ./build/config ./config
+COPY ./build/src ./src
 
-CMD ["sh", "-c", "serve -s build"]
+CMD ["sh", "-c", "NODE_ENV=$NODE_ENV node --stack-trace-limit=20 ./src/app.js"]

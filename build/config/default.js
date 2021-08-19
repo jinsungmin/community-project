@@ -19,10 +19,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 const dotenv = __importStar(require("dotenv"));
-const core = require('@actions/core');
 dotenv.config();
 module.exports = {
-    host: 'https://server.dev-jinjin.com',
+    host: 'https://backend.dev-jinjin.com',
     database: {
         database: 'TEST',
         connectionLimit: 20,

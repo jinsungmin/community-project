@@ -4,7 +4,7 @@ IMAGE_NAME=community
 STACK_NAME=community
 TARGET=backend
 REGISTRY_URL=050339905937.dkr.ecr.ap-northeast-2.amazonaws.com/${IMAGE_NAME}:latest
-HOST=ec2-user@3.35.139.255
+HOST=ec2-user@backend.dev-jinjin.com
 APP_PATH=/home/ec2-user/${STACK_NAME}
 DOCKER_COMPOSE=docker-compose.yml
 PEM_FILE=~/.ssh/jinjin.cer
@@ -27,7 +27,7 @@ fi
 
 set -e
 
-docker build -t ${IMAGE_NAME} .
+docker build --platform amd64 -t ${IMAGE_NAME} .
 errorCheck
 
 docker tag ${IMAGE_NAME}:latest ${REGISTRY_URL}

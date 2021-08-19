@@ -22,11 +22,11 @@ services:
         - traefik.enable=true
         - traefik.docker.lbswarm=true
         - traefik.docker.network=inbound
-        - traefik.http.routers.backend.rule=Host(`server.dev-jinjin.com`)
+        - traefik.http.routers.backend.rule=Host(`backend.dev-jinjin.com`)
         - traefik.http.routers.backend.entrypoints=websecure
         - traefik.http.routers.backend.tls=true
         - traefik.http.routers.backend.tls.certresolver=community
-        - traefik.http.services.backend-service.loadbalancer.server.port=5000
+        - traefik.http.services.backend-service.loadbalancer.server.port=4000
 
   traefik:
     image: library/traefik:2.3.2

@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 export = {
-  host: 'https://server.dev-jinjin.com',
+  host: 'https://backend.dev-jinjin.com',
   database: {
     database: 'TEST',
     connectionLimit: 20,
