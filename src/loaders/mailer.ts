@@ -67,7 +67,7 @@ async function sendUserVerified(to: string, name: string, type: string): Promise
 
 async function notifyUserRegister(to: any, username: string, type: string, email: string): Promise<void> {
     try {
-        const subject = '잇다 사용자 가입'
+        const subject = '사용자 가입'
         const emailAdmins = []
         to.data.map((row) => emailAdmins.push(row.email))
         console.log('email::', emailAdmins)

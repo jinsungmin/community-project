@@ -21,7 +21,7 @@ app.use(
                 origin !== 'http://localhost:3000' &&
                 origin !== 'http://localhost:4000' &&
                 origin !== 'https://backend.dev-jinjin.com' &&
-                origin !== 'https://web.dev-jinjin.com'
+                origin !== 'https://frontend.dev-jinjin.com'
             ) {
                 console.log('cors', origin)
                 callback(new Error('Not allowed by CORS'))

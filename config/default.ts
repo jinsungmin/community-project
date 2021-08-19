@@ -16,12 +16,19 @@ export = {
     port: 6379
   },
   swagger: {
-    id: 'jinjin',
-    password: '3380'
+    id: process.env.SWAGGER_ID,
+    password: process.env.SWAGGER_PW
   },
   mail: {
     account: {
       service: 'gmail',
+      host: "smtp.gmail.com",
+      secureConnection: false,
+      port: 587,
+      tls: {
+        ciphers: 'SSLv3'
+      },
+      requireTLS: true,
       auth: {
         user: process.env.MAILER_ID,
         pass: process.env.MAILER_PW

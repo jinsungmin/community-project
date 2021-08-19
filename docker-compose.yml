@@ -27,6 +27,34 @@ services:
         - traefik.http.routers.backend.tls=true
         - traefik.http.routers.backend.tls.certresolver=community
         - traefik.http.services.backend-service.loadbalancer.server.port=4000
+  web:
+    image: 050339905937.dkr.ecr.ap-northeast-2.amazonaws.com/community-web:latest
+    networks:
+      - inbound
+    deploy:
+      mode: replicated
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      labels:
+        - traefik.enable=true
+        - traefik.docker.lbswarm=true
+        - traefik.docker.network=inbound
+
+        - traefik.http.routers.web.rule=Host(`frontend.dev-jinjin.com`)
+        - traefik.http.routers.web.entrypoints=web
+        - traefik.http.routers.web.middlewares=web-redirect
+
+        - traefik.http.routers.web-secured.rule=Host(`frontend.dev-jinjin.com`)
+        - traefik.http.routers.web-secured.entrypoints=websecure
+        - traefik.http.routers.web-secured.tls=true
+        - traefik.http.routers.web-secured.tls.certresolver=community
+
+        - traefik.http.middlewares.web-redirect.redirectscheme.scheme=https
+        - traefik.http.middlewares.web-redirect.redirectscheme.permanent=true
+
+        - traefik.http.services.web-service.loadbalancer.server.port=5000
 
   traefik:
     image: library/traefik:2.3.2

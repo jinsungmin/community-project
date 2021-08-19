@@ -1,13 +1,13 @@
 #!/bin/bash
-AWS_PROFILE=$1
-IMAGE_NAME=itdda-backend
-STACK_NAME=itdda
+AWS_PROFILE=default
+IMAGE_NAME=community
+STACK_NAME=community
 TARGET=backend
-REGISTRY_URL=849667588554.dkr.ecr.ap-northeast-2.amazonaws.com/${IMAGE_NAME}:latest
-HOST=ubuntu@api.itdda.com
-APP_PATH=/home/ubuntu/${STACK_NAME}
-DOCKER_COMPOSE=docker-compose-production.yml
-PEM_FILE=~/.ssh/itdda.pem
+REGISTRY_URL=050339905937.dkr.ecr.ap-northeast-2.amazonaws.com/${IMAGE_NAME}:latest
+HOST=ec2-user@backend.dev-jinjin.com
+APP_PATH=/home/ec2-user/${STACK_NAME}
+DOCKER_COMPOSE=docker-compose.yml
+PEM_FILE=~/.ssh/jinjin.cer
 
 function printUsage() {
     echo "Usage: deploy-dev.sh {profileName}"
