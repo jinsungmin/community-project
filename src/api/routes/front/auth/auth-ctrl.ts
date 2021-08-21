@@ -67,7 +67,6 @@ async function postAuthSocial(req: IRequest, res: Response, next: Function): Pro
     const {type, token} = req.options
     const user = await AuthService.socialSignIn(type, token)
 
-
     res.status(200).json(user)
   } catch (e) {
     if (e.message === 'not_found') e.status = 404

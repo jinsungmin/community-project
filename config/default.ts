@@ -48,5 +48,10 @@ export = {
     clientId: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_SECRET,
     redirectUrl: 'http://localhost:3000/auth/sign-in'
+  },
+  kakao: {
+      clientId: process.env.KAKAO_CLIENT_ID,
+      clientSecret: process.env.KAKAO_SECRET,
+      redirectUrl: 'http://localhost:3000/auth/sign-in'
   }
 }
