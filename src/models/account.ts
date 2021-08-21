@@ -22,9 +22,9 @@ async function create(
         salt: passwordHash.salt
       })
     } else {
-      insertType = `${type.charAt(0)}_${accountId}`
+      insertType = type
       const refreshHash = generateRandomHash(64)
-      accountInfo = {refreshHash}
+      accountInfo = JSON.stringify({salt:refreshHash})
     }
     await db.query({
       connection,

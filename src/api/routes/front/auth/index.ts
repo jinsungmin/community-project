@@ -59,6 +59,35 @@ const postAuthRegister = new ApiRouter({
   handler: ctrl.postAuthRegister
 })
 
+const postSocialRegister = new ApiRouter({
+  name: 'social/register',
+  method: 'post',
+  summary: '소셜 회원가입',
+  schema: 'requests/front/auth/PostAuthRegister',
+  tags: ['Auth'],
+  isPublic: true,
+  responses: {
+    201: {description: 'success'},
+    404: {description: 'not_found'},
+    409: {description: 'already_added'}
+  },
+  handler: ctrl.postSocialRegister
+})
+
+const postAuthSocial = new ApiRouter({
+  name: 'social',
+  method: 'post',
+  summary: '소셜 로그인',
+  schema: 'requests/front/auth/PostAuthSocial',
+  tags: ['Auth'],
+  isPublic: true,
+  responses: {
+    200: {description: 'success'},
+    404: {description: 'not_found'}
+  },
+  handler: ctrl.postAuthSocial
+})
+
 const getAuthRegisterEmail = new ApiRouter({
   name: 'register/email',
   method: 'get',
@@ -121,6 +150,8 @@ export {
   getAuth,
   putAuth,
   postAuthRegister,
+  postSocialRegister,
+  postAuthSocial,
   getAuthRegisterEmail,
   getAuthRegisterName,
   postAuthReset,

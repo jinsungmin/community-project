@@ -28,9 +28,9 @@ async function create(options: IUserCreate, connection?: PoolConnection): Promis
   }
 }
 
-async function findOne(options: {id?: number, name?: string, accountId?: string}): Promise<IUser> {
+async function findOne(options: {id?: number, name?: string, accountId?: string, type?: string}): Promise<IUser> {
   try {
-    const {id, name, accountId} = options
+    const {id, name, accountId, type} = options
 
     const where = []
     if (id) where.push(`u.id = ${id}`)

@@ -42,10 +42,11 @@ export = {
     region: process.env.AWS_REGION,
     tempBucket: 'jinjin-bucket',
     cloudfront: 'https://darj2zud5au9j.cloudfront.net',
-    bucket: 'jinjin-bucket',
-    social: {
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_SECRET
-    }
+    bucket: 'jinjin-bucket'
+  },
+  google: {
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_SECRET,
+    redirectUrl: 'http://localhost:3000/auth/sign-in'
   }
 }

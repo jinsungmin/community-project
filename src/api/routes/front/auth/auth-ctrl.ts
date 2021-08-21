@@ -1,4 +1,5 @@
 import {Response} from 'express'
+import passport from 'passport'
 import {AccountService, AuthService, UserService} from '../../../../services'
 
 async function postAuth(req: IRequest, res: Response, next: Function): Promise<void> {
@@ -40,7 +41,7 @@ async function putAuth(req: IRequest, res: Response, next: Function): Promise<vo
 async function postAuthRegister(req: IRequest, res: Response, next: Function): Promise<void> {
   try {
     const {email, name, emailToken, profileUrl, password} = req.options
-    const ret = await AuthService.userSignUp({email, name, emailToken, profileUrl, password})
+    const ret = await AuthService.userSignUp({email, name, type: 'email', emailToken, profileUrl, password})
     res.status(201).json(ret)
   } catch (e) {
     if (e.message === 'expired_token') e.status = 401
@@ -49,6 +50,32 @@ async function postAuthRegister(req: IRequest, res: Response, next: Function): P
     next(e)
   }
 }
+
+async function postSocialRegister(req: IRequest, res: Response, next: Function): Promise<void> {
+  try {
+    const user = await AuthService.userSignUp(req.options as any)
+    res.status(201).json(user)
+  } catch (e) {
+    if (e.message === 'not_found') e.status = 404
+    else if (e.message === 'already_in_use') e.status = 404
+    next(e)
+  }
+}
+
+async function postAuthSocial(req: IRequest, res: Response, next: Function): Promise<void> {
+  try {
+    const {type, token} = req.options
+    const user = await AuthService.socialSignIn(type, token)
+
+
+    res.status(200).json(user)
+  } catch (e) {
+    if (e.message === 'not_found') e.status = 404
+    if (e.message === 'deleted_user') e.status = 409
+    next(e)
+  }
+}
+
 
 async function getAuthRegisterEmail(req: IRequest, res: Response, next: Function): Promise<void> {
   try {
@@ -102,4 +129,4 @@ async function postAuthRefresh(req: IRequest, res: Response, next: Function): Pr
   }
 }
 
-export {postAuth, getAuth, putAuth, postAuthRegister, getAuthRegisterEmail, getAuthRegisterName, postAuthReset, postAuthRefresh}
+export {postAuth, getAuth, putAuth, postAuthRegister, postSocialRegister, postAuthSocial, getAuthRegisterEmail, getAuthRegisterName, postAuthReset, postAuthRefresh}

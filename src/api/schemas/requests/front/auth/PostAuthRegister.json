@@ -5,6 +5,14 @@
       "type": "string",
       "format": "email"
     },
+    "type": {
+      "type": "string",
+      "enum": [
+        "email",
+        "kakao",
+        "google"
+      ]
+    },
     "name": {
       "type": "string",
       "pattern": "^[\\w\\W가-힣]{2,20}$"
