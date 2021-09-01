@@ -10,6 +10,9 @@
     "userId": {
       "type": "integer"
     },
+    "userName": {
+      "type": "string"
+    },
     "parentId": {
       "type": "integer"
     },

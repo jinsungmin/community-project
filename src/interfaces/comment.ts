@@ -12,6 +12,7 @@ export interface IComment {
 export interface ICommentCreate {
     id?: number
     userId: number
+    userName?: string
     postId?: number
     parentId?: number
     content: string

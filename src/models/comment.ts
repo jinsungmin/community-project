@@ -8,7 +8,7 @@ const tableName = 'Comments'
 
 async function create(options: ICommentCreate, connection?: PoolConnection): Promise<IComment> {
     try {
-        const {id = generateRandomCode(8), userId, postId, parentId, content, createdAt = new Date(), updatedAt = new Date()} = options
+        const {id = generateRandomCode(8), userId, userName, postId, parentId, content, createdAt = new Date(), updatedAt = new Date()} = options
         await db.query({
             connection,
             sql: `INSERT INTO ?? SET ?`,
@@ -17,7 +17,7 @@ async function create(options: ICommentCreate, connection?: PoolConnection): Pro
                 {id, userId, postId, parentId, content, createdAt, updatedAt}
             ]
         })
-        return {id, userId, postId, parentId, content, createdAt, updatedAt}
+        return {id, userId, userName, postId, parentId, content, createdAt, updatedAt}
     } catch (e) {
         throw e
     }

@@ -36,9 +36,10 @@ async function findOne(options: {id?: number, name?: string, accountId?: string,
     if (id) where.push(`u.id = ${id}`)
     if (name) where.push(`u.name = '${name}'`)
     if (accountId) where.push(`a.accountId = '${accountId}'`)
+    if (type) where.push(`a.type = '${type}'`)
 
     const [row] = await db.query({
-      sql: `SELECT u.*, a.accountId as email
+      sql: `SELECT u.*, a.accountId as email, a.type as type
       FROM ?? u
         JOIN ?? a ON a.userId = u.id
       WHERE ${where.join(' AND ')}

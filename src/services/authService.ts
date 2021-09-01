@@ -100,7 +100,6 @@ async function socialSignIn(type: 'kakao' | 'google', token: string): Promise<an
       account.accountInfo = JSON.parse(account.accountInfo.toString())
       const accessToken = await JWT.createAccessToken({userId: account.userId})
       const refreshToken = await JWT.createRefreshToken({userId: account.userId}, account.accountInfo.salt)
-      console.log(accessToken, refreshToken)
       return {user, accessToken, refreshToken}
     } else {
       const user = await userSignUp({email, name, type, password: null})

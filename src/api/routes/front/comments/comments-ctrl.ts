@@ -3,8 +3,8 @@ import {CommentService} from '../../../../services'
 
 async function postComments(req: IRequest, res: Response, next: Function): Promise<void> {
     try {
-        const {userId, postId, parentId, content} = req.options
-        const ret = await CommentService.create({userId, postId, parentId, content})
+        const {userId, userName, postId, parentId, content} = req.options
+        const ret = await CommentService.create({userId, postId, userName, parentId, content})
         res.status(201).json(ret)
     } catch (e) {
         if (e.message === 'already_in_use') e.status = 409
