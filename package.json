@@ -15,7 +15,7 @@
     "add-assets": "copyfiles -u 1 './src/**/!(*.js|*.jsx|*.map|*.ts|*.tsx)' ./build/src",
     "local": "NODE_ENV=test nodemon --exec ts-node --transpile-only ./src/app.ts",
     "dev": "NODE_ENV=development ts-node --transpile-only ./src/app.ts",
-    "start": "NODE_ENV=production ts-node --transpile-only ./src/app.ts",
+    "start": "NODE_ENV=development ts-node --transpile-only ./src/app.ts",
     "deploy": "npm run build && bash scripts/deploy-dev.sh",
     "lint": "eslint ./src/**/*.ts --fix",
     "test": "NODE_ENV=test mocha"
