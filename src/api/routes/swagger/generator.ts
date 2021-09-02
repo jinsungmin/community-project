@@ -144,7 +144,7 @@ export default (source: string): Dictionary => {
         title: `${pkg.name} ${process.env.NODE_ENV}`,
         description: `API Document for ${pkg.name} ${process.env.NODE_ENV}`,
         contact: {
-          name: 'Marcus'
+          name: 'Jinsungmin'
         },
         version: '0.1.0'
       },

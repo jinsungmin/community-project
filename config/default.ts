@@ -11,10 +11,6 @@ export = {
     charset: 'utf8mb4',
     debug: []
   },
-  redis: {
-    host: 'localhost',
-    port: 6379
-  },
   swagger: {
     id: process.env.SWAGGER_ID,
     password: process.env.SWAGGER_PW
